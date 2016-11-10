@@ -4,4 +4,11 @@
 # but could be replaced with similar files from any major language
 
 # I'll execute my programs, with the input directory paymo_input and output the files in the directory paymo_output
-python ./src/antifraud.py ./paymo_input/batch_payment.txt ./paymo_input/stream_payment.txt ./paymo_output/output1.txt ./paymo_output/output2.txt ./paymo_output/output3.txt
+# python ./src/antifraud.py ./paymo_input/batch_payment.txt ./paymo_input/stream_payment.txt ./paymo_output/output1.txt ./paymo_output/output2.txt ./paymo_output/output3.txt
+
+mkdir classes
+
+javac -d classes src/sv/antifraud/*.java
+java -classpath classes sv.antifraud.FeatureOne
+java -classpath classes sv.antifraud.FeatureTwo
+java -classpath classes sv.antifraud.FeatureThree

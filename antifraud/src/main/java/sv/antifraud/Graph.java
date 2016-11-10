@@ -12,51 +12,25 @@ import java.util.Set;
 public class Graph {
 
     // symbol table: key = string vertex, value = set of neighboring vertices
-    private Map<Integer, Set<Integer>> st;
-
-    // number of edges
-    private int numEdges;
+    private Map<Integer, Set<Integer>> adjacencyList;
 
     /**
      * Initializes an empty graph with no vertices or edges.
      */
     public Graph() {
-        st = new HashMap<Integer, Set<Integer>>();
+        adjacencyList = new HashMap<Integer, Set<Integer>>(10);
     }
 
     /**
-     * Returns the number of vertices in this graph.
-     *
-     * @return the number of vertices in this graph
+     * Initializes an empty graph with no vertices or edges.
      */
-    public int V() {
-        return st.size();
-    }
-
-    /**
-     * Returns the number of edges in this graph.
-     *
-     * @return the number of edges in this graph
-     */
-    public int E() {
-        return numEdges;
+    public Graph(int initialSize) {
+        adjacencyList = new HashMap<Integer, Set<Integer>>(initialSize);
     }
 
     // throw an exception if v is not a vertex
     private void validateVertex(Integer v) {
         if (!hasVertex(v)) throw new IllegalArgumentException(v + " is not a vertex");
-    }
-
-    /**
-     * Returns the degree of vertex v in this graph.
-     *
-     * @param  v the vertex
-     * @return the degree of {@code v} in this graph
-     * @throws IllegalArgumentException if {@code v} is not a vertex in this graph
-     */
-    public int degree(Integer v) {
-        validateVertex(v);
-        return st.get(v).size();
     }
 
     /**
@@ -68,28 +42,19 @@ public class Graph {
     public void addEdge(Integer v, Integer w) {
         if (!hasVertex(v)) addVertex(v);
         if (!hasVertex(w)) addVertex(w);
-        if (!hasEdge(v, w)) numEdges++;
-        st.get(v).add(w);
-        st.get(w).add(v);
+        //if (!hasEdge(v, w)) numEdges++;
+        adjacencyList.get(v).add(w);
+        adjacencyList.get(w).add(v);
     }
 
     /**
      * Adds vertex v to this graph (if it is not already a vertex).
      *
      * @param  v the vertex
+     * TODO Set initial size of the HashSet based on average size in the dataset
      */
-    public void addVertex(Integer v) {
-        if (!hasVertex(v)) st.put(v, new HashSet<Integer>());
-    }
-
-
-    /**
-     * Returns the vertices in this graph.
-     *
-     * @return the set of vertices in this graph
-     */
-    public Iterable<Integer> vertices() {
-        return st.keySet();
+    private void addVertex(Integer v) {
+        adjacencyList.put(v, new HashSet<Integer>());
     }
 
     /**
@@ -101,7 +66,7 @@ public class Graph {
      */
     public Iterable<Integer> adjacentTo(Integer v) {
         validateVertex(v);
-        return st.get(v);
+        return adjacencyList.get(v);
     }
 
     /**
@@ -112,40 +77,7 @@ public class Graph {
      *         {@code false} otherwise
      */
     public boolean hasVertex(Integer v) {
-        return st.keySet().contains(v);
-    }
-
-    /**
-     * Returns true if v-w is an edge in this graph.
-     *
-     * @param  v one vertex in the edge
-     * @param  w the other vertex in the edge
-     * @return {@code true} if {@code v-w} is a vertex in this graph,
-     *         {@code false} otherwise
-     * @throws IllegalArgumentException if either {@code v} or {@code w}
-     *         is not a vertex in this graph
-     */
-    public boolean hasEdge(Integer v, Integer w) {
-        validateVertex(v);
-        validateVertex(w);
-        return st.get(v).contains(w);
-    }
-
-    /**
-     * Returns a string representation of this graph.
-     *
-     * @return string representation of this graph
-     */
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (Integer v : st.keySet()) {
-            s.append(v + ": ");
-            for (Integer w : st.get(v)) {
-                s.append(w + " ");
-            }
-            s.append('\n');
-        }
-        return s.toString();
+        return adjacencyList.keySet().contains(v);
     }
 
     /**
@@ -154,38 +86,23 @@ public class Graph {
     public static void main(String[] args) {
 
         // create graph
-        Graph graph = new Graph();
+        Graph graph = new Graph(2);
         graph.addEdge(new Integer(0), new Integer(2));
         graph.addEdge(new Integer(1), new Integer(2));
         System.out.println(graph);
 
-        Graph graph2 = new Graph();
+        Graph graph1 = new Graph(3);
+        graph.addEdge(new Integer(49466), new Integer(6989));
+        graph.addEdge(new Integer(6989), new Integer(11302));
+        System.out.println(graph);
+
+        Graph graph2 = new Graph(5);
         graph2.addEdge(new Integer(0), new Integer(1));
         graph2.addEdge(new Integer(1), new Integer(2));
         graph2.addEdge(new Integer(2), new Integer(3));
         graph2.addEdge(new Integer(3), new Integer(4));
         graph2.addEdge(new Integer(4), new Integer(5));
         System.out.println(graph2);
-
-        /*
-        while (!StdIn.isEmpty()) {
-            String v = StdIn.readString();
-            String w = StdIn.readString();
-            graph.addEdge(v, w);
-        }
-
-        // print out graph
-        StdOut.println(graph);
-
-        // print out graph again by iterating over vertices and edges
-        for (String v : graph.vertices()) {
-            StdOut.print(v + ": ");
-            for (String w : graph.adjacentTo(v)) {
-                StdOut.print(w + " ");
-            }
-            StdOut.println();
-        }
-*/
-    }
+   }
 
 }

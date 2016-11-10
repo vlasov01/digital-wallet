@@ -13,27 +13,14 @@ import java.util.Set;
 
 public final class FeatureOne extends AntifraudEngine {
 
-    private static int trusted = 0;
-    private static final File featureOneFile = new File(baseOutputFilename+"output1.txt");
+    private static final File outputFile = new File(baseOutputFilename+"output1.txt");
 
     public static void main(String[] args){
-        try {
-            validateInputFiles();
-            //System.in.read(); //VisualVM start point
-            final BufferedWriter bw = getFeatureWriter(featureOneFile);
-            feature1(bw);
-            bw.close();
-            System.out.println("trusted="+trusted);
-            //max
-            //3938360+(
-
-        } catch (final IOException ex) {
-            System.out.println("Exception: "+ex);
-            ex.printStackTrace();
-        }
+        FeatureOne engine = new FeatureOne();
+        engine.execute(outputFile);
     }
 
-    private static void feature1(final BufferedWriter bw) throws IOException {
+    public void runValidator(final BufferedWriter bw) throws IOException {
         final Set<Long> set =
                 //Collections.synchronizedSortedSet(  - not required - single for a thread
                 //new TreeSet<Long>();//);
