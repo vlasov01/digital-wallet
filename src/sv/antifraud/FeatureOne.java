@@ -10,12 +10,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * a program that detects suspicious transactions
+ * fraud detection algorithm
+ * Feature 1
+ * Created by Sergey Vlasov on 11/4/2016.
+ */
 public final class FeatureOne extends AntifraudEngine {
-
-    private static final File outputFile = new File(baseOutputFilename+"output1.txt");
-
     public static void main(String[] args){
+        outputFile = new File(baseOutputFilename+"output1.txt");
+        configIO(args);
         FeatureOne engine = new FeatureOne();
         engine.execute(outputFile);
     }

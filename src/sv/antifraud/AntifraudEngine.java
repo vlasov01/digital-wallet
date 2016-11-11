@@ -11,13 +11,18 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 /**
- * Created by admin on 11/7/2016.
+ * a program that detects suspicious transactions
+ * fraud detection algorithm
+ * AntifraudEngine - executor
+ * Created by Sergey Vlasov on 11/4/2016.
  */
+
 public abstract class AntifraudEngine {
     public static final String baseInputFilename = "paymo_input/";
     public static final String baseOutputFilename = "paymo_output/";
-    public static final File batchPaymentFile = new File(baseInputFilename+"batch_payment.csv");
-    public static final File streamPaymentFile = new File(baseInputFilename+"stream_payment.csv");
+    public static File outputFile;
+    public static File batchPaymentFile = new File(baseInputFilename+"batch_payment.csv");
+    public static File streamPaymentFile = new File(baseInputFilename+"stream_payment.csv");
 
     public int trusted = 0;
     //TODO remove
@@ -28,7 +33,13 @@ public abstract class AntifraudEngine {
     public int gchr = 0;
 
     public abstract void runValidator(BufferedWriter bw) throws IOException;
-
+    public static void configIO(String[] args) {
+        if (args.length==3){
+            batchPaymentFile = new File(args[0]);
+            streamPaymentFile = new File(args[1]);
+            outputFile = new File(args[2]);
+        }
+    }
     public void execute(File featureOutputFile) {
         try {
             validateInputFiles();

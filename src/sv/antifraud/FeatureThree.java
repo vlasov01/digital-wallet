@@ -3,6 +3,7 @@ package sv.antifraud;
 /**
  * a program that detects suspicious transactions
  * fraud detection algorithm
+ * Feature 3
  * Created by Sergey Vlasov on 11/4/2016.
  */
 import java.io.BufferedWriter;
@@ -12,10 +13,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class FeatureThree extends AntifraudEngine {
-
-    private static final File outputFile = new File(baseOutputFilename+"output3.txt");
-
     public static void main(String[] args){
+        outputFile = new File(baseOutputFilename+"output3.txt");
+        configIO(args);
         FeatureThree engine = new FeatureThree();
         engine.execute(outputFile);
     }
@@ -57,6 +57,7 @@ public final class FeatureThree extends AntifraudEngine {
                         if (d != -1) {
                             //cache.add(Transformer.toOrderedLong(x, y));
                             bw.write("trusted\n");
+                            /* / Processing progress
                             trusted++;
                             if (d==2)
                                 g2++;
@@ -68,6 +69,7 @@ public final class FeatureThree extends AntifraudEngine {
                                 //System.out.println("Time to process g1 " + g1 + " g2 " + g2 + " g3 " + g3 + " g4 " + g4 + " t="+(System.currentTimeMillis() - startTime) + " GCHR=" + gchr);
                                 System.out.println("Time to process g2 " + g2 + " g3 " + g3 + " g4 " + g4 + " t="+(System.currentTimeMillis() - startTime) + " d=" + d);
                             }
+                            */
                         } else {
                             bw.write("unverified\n");
                         }

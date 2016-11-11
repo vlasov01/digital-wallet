@@ -3,6 +3,7 @@ package sv.antifraud;
 /**
  * a program that detects suspicious transactions
  * fraud detection algorithm
+ * Feature 2
  * Created by Sergey Vlasov on 11/4/2016.
  */
 import java.io.BufferedWriter;
@@ -12,10 +13,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class FeatureTwo extends AntifraudEngine {
-
-    private static final File outputFile = new File(baseOutputFilename+"output2.txt");
-
     public static void main(String[] args){
+        outputFile = new File(baseOutputFilename+"output2.txt");
+        configIO(args);
         FeatureTwo engine = new FeatureTwo();
         engine.execute(outputFile);
     }

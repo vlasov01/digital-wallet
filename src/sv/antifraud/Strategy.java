@@ -3,7 +3,9 @@ package sv.antifraud;
 import java.util.Set;
 
 /**
- * Created by admin on 11/5/2016.
+ * Strategy.java
+ * Strategy Interface
+ * Created by Sergey Vlasov on 11/4/2016.
  */
 
 public interface Strategy{

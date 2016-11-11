@@ -7,13 +7,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by admin on 11/9/2016.
+ * FastGraph.java
+ * Graph implementation to store Integer values backed by an array for a faster access
+ * Created by Sergey Vlasov on 11/4/2016.
  */
 
 public final class FastGraph extends Graph {
     // symbol table: key = string vertex, value = set of neighboring vertices
     //private Map<Integer, Set<Integer>> adjacencyList;
-    @SuppressWarnings("unchecked")
     private Set<Integer>[] adjacencyList ;
 
     /**
@@ -25,6 +26,7 @@ public final class FastGraph extends Graph {
 
     /**
      * Initializes an empty graph with no vertices or edges.
+     * @param initialSize size of the array
      */
     public FastGraph(int initialSize) {
         adjacencyList = new Set[initialSize+1];//<Integer>
