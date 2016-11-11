@@ -9,6 +9,6 @@
 mkdir classes
 
 javac -d classes src/sv/antifraud/*.java
-java -classpath classes sv.antifraud.FeatureOne paymo_input/batch_payment.txt paymo_input/stream_payment.csv paymo_output/output1.txt
-java -classpath classes sv.antifraud.FeatureTwo paymo_input/batch_payment.txt paymo_input/stream_payment.csv paymo_output/output1.txt
-java -classpath classes sv.antifraud.FeatureThree paymo_input/batch_payment.txt paymo_input/stream_payment.csv paymo_output/output1.txt
+java -classpath classes sv.antifraud.FeatureOne paymo_input/batch_payment.csv paymo_input/stream_payment.csv paymo_output/output1.txt
+java -classpath classes sv.antifraud.FeatureTwo paymo_input/batch_payment.csv paymo_input/stream_payment.csv paymo_output/output1.txt
+java -classpath classes sv.antifraud.FeatureThree paymo_input/batch_payment.csv paymo_input/stream_payment.csv paymo_output/output1.txt
