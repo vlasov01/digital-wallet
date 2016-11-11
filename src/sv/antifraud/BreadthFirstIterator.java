@@ -11,16 +11,16 @@ import java.util.Set;
  */
 
 public class BreadthFirstIterator implements Iterator<Integer> {
-    private Set<Integer> visited = new HashSet<Integer>();
+    final private Set<Integer> visited = new HashSet<Integer>();
     private Queue<Integer> queue = new LinkedList<Integer>();
     private Graph graph;
     private int distance = 0;
     private int cutOffDistance;
 
     public BreadthFirstIterator(Graph g, Integer startingVertex, int cutOffDistance) {
-        this.graph = g;
-        this.queue.add(startingVertex);
-        this.visited.add(startingVertex);
+        graph = g;
+        queue.add(startingVertex);
+        visited.add(startingVertex);
         this.cutOffDistance = cutOffDistance;
     }
 
@@ -35,40 +35,49 @@ public class BreadthFirstIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return !this.queue.isEmpty();
+        return !queue.isEmpty();
     }
 
     @Override
     public Integer next() {
         //removes from front of queue
         Integer next = queue.remove();
-
-        for (Integer neighbor : this.graph.adjacentTo(next)) {
-            if (!this.visited.contains(neighbor)) {
-                this.queue.add(neighbor);
-                this.visited.add(neighbor);
+        for (Integer neighbor : graph.adjacentTo(next)) {
+            if (!visited.contains(neighbor)) {
+                queue.add(neighbor);
+                visited.add(neighbor);
             }
         }
         return next;
     }
 
+    /**
+     * Returns distance from a root to a vertex in this graph.
+     *
+     * @param  endVertex the vertex
+     * @return {@code distance} if {@code endVertex} is a vertex in this graph accessible from
+     * startingVertex in less then cut-off steps defined as cutOffDistance,
+     *         {@code -1} otherwise
+     */
+
     public int distanceTo(Integer endVertex){
         Queue<Integer> nextLevel = new LinkedList<Integer>();
         try {
-            while (distance < cutOffDistance && this.hasNext()) {
-                while (this.hasNext()) {
+            while (distance < cutOffDistance && hasNext()) {
+                while (hasNext()) {
                     Integer next = queue.remove();
-                    //System.out.println(next);
                     if (next.equals(endVertex)) return distance;
-                    for (Integer neighbor : this.graph.adjacentTo(next)) {
-                        if (!this.visited.contains(neighbor)) {
+                    for (Integer neighbor : graph.adjacentTo(next)) {
+                        if (!visited.contains(neighbor)) {
+                            //Are we there yet?
                             if (neighbor.equals(endVertex)) return distance + 1;
+
                             nextLevel.add(neighbor);
-                            this.visited.add(neighbor);
+                            visited.add(neighbor);
                         }
                     }
                 }
-                this.queue = nextLevel;
+                queue = nextLevel;
                 nextLevel = new LinkedList<Integer>();
                 distance++;
             }

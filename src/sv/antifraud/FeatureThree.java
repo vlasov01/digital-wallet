@@ -21,7 +21,7 @@ public final class FeatureThree extends AntifraudEngine {
     }
 
     public void runValidator(final BufferedWriter bw) throws IOException {
-        //final Set<Long> set = new HashSet<Long>(4000000); //Improve speed to bootstrap initial state
+        final Set<Long> set = new HashSet<Long>(4000000); //Improve speed to bootstrap initial state
         //final Set<Long> cache = new HashSet<Long>(4000000); //Improve speed of graph
         Graph graph = new FastGraph(700000);
 
@@ -29,7 +29,7 @@ public final class FeatureThree extends AntifraudEngine {
             @Override
             public void performTask(int x, int y) {
                 graph.addEdge(new Integer(x), new Integer(y));
-                //set.add(Transformer.toOrderedLong(x,y));
+                set.add(Transformer.toOrderedLong(x,y));
             }
         });
 
@@ -40,38 +40,38 @@ public final class FeatureThree extends AntifraudEngine {
             public void performTask(int x, int y) {
                 BreadthFirstIterator bfi = new BreadthFirstIterator(graph, new Integer(x),4);
                 try {
-                    /*
+
                     if (set.contains(Transformer.toOrderedLong(x,y))) {
                         bw.write("trusted\n");
                         trusted++;
                     }
+/*
                     else if (cache.contains(Transformer.toOrderedLong(x,y))) {
                         bw.write("trusted\n");
                         trusted++;
                         gchr++;
                     }
 */
-                    //else {
+                    else {
                         int d = bfi.distanceTo(new Integer(y));
                         if (d != -1) {
                             //cache.add(Transformer.toOrderedLong(x, y));
                             bw.write("trusted\n");
                             trusted++;
-                            if (d==1)
-                                g1++;
-                            else if (d==2)
+                            if (d==2)
                                 g2++;
                             else if (d==3)
                                 g3++;
                             else if (d==4)
                                 g4++;
                             if ((g2+g3+g4) % 1000 == 0) {
-                                System.out.println("Time to process g1 " + g1 + " g2 " + g2 + " g3 " + g3 + " g4 " + g4 + " t="+(System.currentTimeMillis() - startTime) + " GCHR=" + gchr);
+                                //System.out.println("Time to process g1 " + g1 + " g2 " + g2 + " g3 " + g3 + " g4 " + g4 + " t="+(System.currentTimeMillis() - startTime) + " GCHR=" + gchr);
+                                System.out.println("Time to process g2 " + g2 + " g3 " + g3 + " g4 " + g4 + " t="+(System.currentTimeMillis() - startTime) + " d=" + d);
                             }
                         } else {
                             bw.write("unverified\n");
                         }
-                    //}
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

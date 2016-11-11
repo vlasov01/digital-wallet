@@ -13,6 +13,7 @@ import java.util.Set;
 public final class FastGraph extends Graph {
     // symbol table: key = string vertex, value = set of neighboring vertices
     //private Map<Integer, Set<Integer>> adjacencyList;
+    @SuppressWarnings("unchecked")
     private Set<Integer>[] adjacencyList ;
 
     /**
